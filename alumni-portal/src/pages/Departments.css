@@ -1,0 +1,42 @@
+.departments-container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.social-media-section {
+    margin: 30px 0;
+}
+
+.social-media-links a {
+    display: inline-block;
+    margin: 0 10px;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+}
+
+.social-media-links img {
+    width: 40px;
+    height: 40px;
+}
+
+.social-media-links span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.contact-section {
+    margin-top: 30px;
+}
+
+.contact-section a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}

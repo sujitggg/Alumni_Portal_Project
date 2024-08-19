@@ -1,0 +1,189 @@
+
+### User Table ###
+CREATE TABLE User (
+    userid INT AUTO_INCREMENT PRIMARY KEY,
+    user_name VARCHAR(300) NOT NULL,
+    mobile VARCHAR(34),
+    email_id VARCHAR(300) UNIQUE,
+    address TEXT,
+    city VARCHAR(250),
+    state VARCHAR(250),
+    district VARCHAR(250),
+    date_of_birth DATE
+);
+
+#### Login Table ###
+CREATE TABLE Login (
+    user_id INT,
+    password VARCHAR(350) NOT NULL,
+    PRIMARY KEY (user_id),
+    FOREIGN KEY (user_id) REFERENCES User(userid)
+);
+
+#### Alumni Table #####
+CREATE TABLE Alumni (
+    alumni_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(350) NOT NULL,
+    YOG YEAR,
+    prn_no VARCHAR(100) UNIQUE,
+    current_loc VARCHAR(350),
+    industry VARCHAR(350),
+    profile_picture VARCHAR(350),
+    current_designation VARCHAR(350),
+    achievements TEXT,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES User(userid)
+);
+
+### Achievements Table #####
+CREATE TABLE Achievements (
+    achievement_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(350) NOT NULL,
+    description TEXT,
+    category VARCHAR(350),
+    alumni_id INT,
+    date DATE,
+    FOREIGN KEY (alumni_id) REFERENCES Alumni(alumni_id)
+);
+
+### Master User Table ####
+CREATE TABLE Master_User (
+    master_user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(350) NOT NULL,
+    password VARCHAR(350) NOT NULL,
+    email VARCHAR(350) UNIQUE,
+    role VARCHAR(100),
+    registration_date DATE
+);
+
+## Events Table ####
+CREATE TABLE Events (
+    event_id INT AUTO_INCREMENT PRIMARY KEY,
+    event_name VARCHAR(350) NOT NULL,
+    event_date DATE,
+    event_description TEXT,
+    event_photos VARCHAR(350),
+    event_videos VARCHAR(350)
+);
+
+## Message Table## 
+CREATE TABLE Message (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT,
+    receiver_id INT,
+    msg_content TEXT,
+    sent_date DATE,
+    FOREIGN KEY (sender_id) REFERENCES User(userid),
+    FOREIGN KEY (receiver_id) REFERENCES User(userid)
+);
+
+##  Batch Table ##
+CREATE TABLE Batch (
+    batch_name VARCHAR(350) PRIMARY KEY,
+    batch_pic VARCHAR(350)
+);
+
+## News Table ##
+CREATE TABLE News (
+    news_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(350) NOT NULL,
+    content TEXT,
+    publication_date DATE,
+    author VARCHAR(350)
+);
+
+## Birthday Table ##
+CREATE TABLE Birthday (
+    pop_msg TEXT
+);
+
+
+
+entity User {
+    user_name String required,
+    mobile String,
+    email_id String required unique,
+    address TextBlob,
+    city String,
+    state String,
+    district String,
+    date_of_birth LocalDate
+}
+
+entity Login {
+    password String required
+}
+
+relationship OneToOne {
+    Login{user} to User
+}
+
+entity Alumni {
+    name String required,
+    YOG Integer,
+    prn_no String unique,
+    current_loc String,
+    industry String,
+    profile_picture String,
+    current_designation String,
+    achievements TextBlob
+}
+
+relationship ManyToOne {
+    Alumni{user} to User
+}
+
+entity Achievements {
+    title String required,
+    description TextBlob,
+    category String,
+    date LocalDate
+}
+
+relationship ManyToOne {
+    Achievements{alumni} to Alumni
+}
+
+entity Master_User {
+    username String required,
+    password String required,
+    email String required unique,
+    role String,
+    registration_date LocalDate
+}
+
+entity Events {
+    event_name String required,
+    event_date LocalDate,
+    event_description TextBlob,
+    event_photos String,
+    event_videos String
+}
+
+entity Message {
+    msg_content TextBlob,
+    sent_date LocalDate
+}
+
+relationship ManyToOne {
+    Message{sender} to User,
+    Message{receiver} to User
+}
+
+entity Batch {
+    batch_name String required,
+    batch_pic String
+}
+
+entity News {
+    title String required,
+    content TextBlob,
+    publication_date LocalDate,
+    author String
+}
+
+entity Birthday {
+    pop_msg TextBlob
+}
+
+

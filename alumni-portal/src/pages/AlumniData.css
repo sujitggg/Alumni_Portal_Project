@@ -1,0 +1,61 @@
+/* AlumniData.css */
+
+.alumni-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.alumni-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 220px; /* Reduced width for a more compact card */
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.alumni-card:hover {
+    transform: scale(1.05);
+}
+
+.alumni-photo {
+    width: 120px; /* Reduced size of the image */
+    height: 120px; /* Ensure the image remains square */
+    border-radius: 50%; /* Keeps the image circular */
+    margin-bottom: 15px;
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+h2 {
+    font-size: 18px; /* Slightly smaller font size for better fit */
+    margin-bottom: 8px;
+    color: #333;
+}
+
+p {
+    font-size: 14px; /* Reduced font size for compactness */
+    color: #666;
+    margin: 5px 0;
+}
+
+.load-more-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+    background-color: #0056b3;
+}

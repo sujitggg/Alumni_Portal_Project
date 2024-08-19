@@ -1,0 +1,64 @@
+/* EventList.css */
+
+.event-list-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 18px;
+    color: #555;
+}
+
+.events {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.event-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px; /* Adjust the width to fit your design */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
+}
+
+.event-card img {
+    width: 100%; /* Make the image take up the full width of the card */
+    height: 200px; /* Set a fixed height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+.event-details {
+    padding: 15px;
+}
+
+.event-details h2 {
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+.event-details p {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.event-details p strong {
+    color: #333;
+}

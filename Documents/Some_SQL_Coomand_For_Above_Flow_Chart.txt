@@ -1,0 +1,149 @@
+CREATE TABLE MasterUsers (
+    master_user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role ENUM('master') DEFAULT 'master',
+    registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role ENUM('student', 'alumni') NOT NULL,
+    registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Alumni (
+    alumni_id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    year_of_graduation YEAR NOT NULL,
+    prn_no VARCHAR(50) UNIQUE NOT NULL,
+    department VARCHAR(255) NOT NULL,
+    current_location VARCHAR(255),
+    industry VARCHAR(255),
+    profile_picture VARCHAR(255),
+    current_designation VARCHAR(255),
+    achievements TEXT,
+    FOREIGN KEY (alumni_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Events (
+    event_id INT PRIMARY KEY AUTO_INCREMENT,
+    event_name VARCHAR(255) NOT NULL,
+    event_date DATETIME NOT NULL,
+    event_description TEXT,
+    event_photos INT,
+    event_videos INT,
+    FOREIGN KEY (event_photos) REFERENCES Media(media_id),
+    FOREIGN KEY (event_videos) REFERENCES Media(media_id)
+);
+
+CREATE TABLE Media (
+    media_id INT PRIMARY KEY AUTO_INCREMENT,
+    media_type ENUM('photo', 'video') NOT NULL,
+    media_url VARCHAR(255) NOT NULL,
+    uploaded_by INT,
+    upload_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (uploaded_by) REFERENCES Users(user_id)
+);
+
+CREATE TABLE News (
+    news_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    publication_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    author INT,
+    FOREIGN KEY (author) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Achievements (
+    achievement_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    category ENUM('academic', 'professional', 'sports') NOT NULL,
+    alumni_id INT,
+    date DATE NOT NULL,
+    FOREIGN KEY (alumni_id) REFERENCES Alumni(alumni_id)
+);
+
+CREATE TABLE Forums (
+    forum_id INT PRIMARY KEY AUTO_INCREMENT,
+    forum_name VARCHAR(255) NOT NULL,
+    created_by INT,
+    creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (created_by) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Discussions (
+    discussion_id INT PRIMARY KEY AUTO_INCREMENT,
+    forum_id INT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    posted_by INT,
+    post_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (forum_id) REFERENCES Forums(forum_id),
+    FOREIGN KEY (posted_by) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Messages (
+    message_id INT PRIMARY KEY AUTO_INCREMENT,
+    sender_id INT,
+    receiver_id INT,
+    message_content TEXT NOT NULL,
+    sent_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES Users(user_id),
+    FOREIGN KEY (receiver_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Jobs (
+    job_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    posted_by INT,
+    post_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    application_deadline DATE NOT NULL,
+    FOREIGN KEY (posted_by) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Applications (
+    application_id INT PRIMARY KEY AUTO_INCREMENT,
+    job_id INT,
+    applicant_id INT,
+    resume_url VARCHAR(255) NOT NULL,
+    application_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (job_id) REFERENCES Jobs(job_id),
+    FOREIGN KEY (applicant_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE VolunteerOpportunities (
+    opportunity_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    signup_form_url VARCHAR(255) NOT NULL,
+    recognition TEXT
+);
+
+CREATE TABLE Stories (
+    story_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    alumni_id INT,
+    submission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (alumni_id) REFERENCES Alumni(alumni_id)
+);
+
+CREATE TABLE FAQs (
+    faq_id INT PRIMARY KEY AUTO_INCREMENT,
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL
+);
+
+CREATE TABLE PrivacyTerms (
+    document_id INT PRIMARY KEY AUTO_INCREMENT,
+    content TEXT NOT NULL,
+    type ENUM('privacy_policy', 'terms_of_service') NOT NULL,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);
